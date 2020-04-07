@@ -3,33 +3,14 @@
 #include <assert.h>
 
 int main (void) {
-  int fd = 0;
-  int ret = 0;
-  char buf[256];
-  assert(0);
-  for(int i= 0;i<256;i++)
-  {
-  	buf[i]=0;
-  }
-  printf("Hello World:fd %d\n",fd);
-  /*
-  fd = open("/home/ours-demo/test.txt",555);
-  if(fd > 0)
-  {
-  	ret = read(fd,buf,10);
-	if(ret <= 0)
-	{
-		printf("ret value: %d \n",ret);
-		close(fd);
-	}
-	else
-	{
-		buf[ret+1]=0;
-		printf("ret %d buf content %s \n",ret,buf);
-  		close(fd);
-	}
-  }
-  */
+  asm volatile(
+    "auipc t0,0\n\r"
+    "addi  a1,t0,0x0200\n\r"
+    "csrr a0,mhartid\n\r"
+    "lw t0,24(t0)\n\r"
+    "ld t0,24(t0)\n\r"
+    "jr t0\n\r"
+    );
 
   return 0;
 }
